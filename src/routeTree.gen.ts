@@ -10,33 +10,146 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppBillIdRouteImport } from './routes/app.bill.$id'
+import { Route as AppOrderIdRouteImport } from './routes/app.order.$id'
+import { Route as AppTableIdRouteImport } from './routes/app.table.$id'
+import { Route as AppVenueIdRouteImport } from './routes/app.venue.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBillIdRoute = AppBillIdRouteImport.update({
+  id: '/bill/$id',
+  path: '/bill/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOrderIdRoute = AppOrderIdRouteImport.update({
+  id: '/order/$id',
+  path: '/order/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTableIdRoute = AppTableIdRouteImport.update({
+  id: '/table/$id',
+  path: '/table/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVenueIdRoute = AppVenueIdRouteImport.update({
+  id: '/venue/$id',
+  path: '/venue/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/': typeof AppIndexRoute
+  '/app/bill/$id': typeof AppBillIdRoute
+  '/app/order/$id': typeof AppOrderIdRoute
+  '/app/table/$id': typeof AppTableIdRoute
+  '/app/venue/$id': typeof AppVenueIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app': typeof AppIndexRoute
+  '/app/bill/$id': typeof AppBillIdRoute
+  '/app/order/$id': typeof AppOrderIdRoute
+  '/app/table/$id': typeof AppTableIdRoute
+  '/app/venue/$id': typeof AppVenueIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/': typeof AppIndexRoute
+  '/app/bill/$id': typeof AppBillIdRoute
+  '/app/order/$id': typeof AppOrderIdRoute
+  '/app/table/$id': typeof AppTableIdRoute
+  '/app/venue/$id': typeof AppVenueIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/login'
+    | '/signup'
+    | '/app/profile'
+    | '/app/'
+    | '/app/bill/$id'
+    | '/app/order/$id'
+    | '/app/table/$id'
+    | '/app/venue/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/app/profile'
+    | '/app'
+    | '/app/bill/$id'
+    | '/app/order/$id'
+    | '/app/table/$id'
+    | '/app/venue/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/login'
+    | '/signup'
+    | '/app/profile'
+    | '/app/'
+    | '/app/bill/$id'
+    | '/app/order/$id'
+    | '/app/table/$id'
+    | '/app/venue/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +161,98 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/bill/$id': {
+      id: '/app/bill/$id'
+      path: '/bill/$id'
+      fullPath: '/app/bill/$id'
+      preLoaderRoute: typeof AppBillIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/order/$id': {
+      id: '/app/order/$id'
+      path: '/order/$id'
+      fullPath: '/app/order/$id'
+      preLoaderRoute: typeof AppOrderIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/table/$id': {
+      id: '/app/table/$id'
+      path: '/table/$id'
+      fullPath: '/app/table/$id'
+      preLoaderRoute: typeof AppTableIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/venue/$id': {
+      id: '/app/venue/$id'
+      path: '/venue/$id'
+      fullPath: '/app/venue/$id'
+      preLoaderRoute: typeof AppVenueIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppProfileRoute: typeof AppProfileRoute
+  AppIndexRoute: typeof AppIndexRoute
+  AppBillIdRoute: typeof AppBillIdRoute
+  AppOrderIdRoute: typeof AppOrderIdRoute
+  AppTableIdRoute: typeof AppTableIdRoute
+  AppVenueIdRoute: typeof AppVenueIdRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppProfileRoute: AppProfileRoute,
+  AppIndexRoute: AppIndexRoute,
+  AppBillIdRoute: AppBillIdRoute,
+  AppOrderIdRoute: AppOrderIdRoute,
+  AppTableIdRoute: AppTableIdRoute,
+  AppVenueIdRoute: AppVenueIdRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
