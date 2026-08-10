@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { AuthShell, Field } from "@/routes/login";
+import { AuthShell, Field, type Errs } from "@/routes/login";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
@@ -25,12 +25,12 @@ function SignupPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", contact: "", password: "", confirm: "" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Errs>({});
   const set = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }));
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    const next: Record<string, string> = {};
+    const next: Errs = {};
     if (form.name.trim().length < 2) next.name = t("auth.err.name");
     if (!/^([^@\s]+@[^@\s]+\.[^@\s]+|\+?\d{7,})$/.test(form.contact.trim()))
       next.contact = t("auth.err.contact");

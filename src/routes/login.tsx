@@ -26,11 +26,11 @@ function LoginPage() {
   const navigate = useNavigate();
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Errs>({});
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    const next: Record<string, string> = {};
+    const next: Errs = {};
     if (!/^([^@\s]+@[^@\s]+\.[^@\s]+|\+?\d{7,})$/.test(contact.trim()))
       next.contact = t("auth.err.contact");
     if (password.length < 6) next.password = t("auth.err.password");
@@ -75,6 +75,13 @@ function LoginPage() {
   );
 }
 
+export type Errs = {
+  name?: string | undefined;
+  contact?: string | undefined;
+  password?: string | undefined;
+  confirm?: string | undefined;
+};
+
 export function AuthShell({
   title,
   subtitle,
@@ -113,7 +120,7 @@ export function Field({
   label: string;
   value: string;
   onChange: (v: string) => void;
-  error?: string;
+  error?: string | undefined;
   type?: string;
 }) {
   return (
