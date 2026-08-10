@@ -14,6 +14,9 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppBillIdRouteImport } from './routes/app.bill.$id'
+import { Route as AppOrderIdRouteImport } from './routes/app.order.$id'
 import { Route as AppTableIdRouteImport } from './routes/app.table.$id'
 import { Route as AppVenueIdRouteImport } from './routes/app.venue.$id'
 
@@ -42,6 +45,21 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBillIdRoute = AppBillIdRouteImport.update({
+  id: '/bill/$id',
+  path: '/bill/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOrderIdRoute = AppOrderIdRouteImport.update({
+  id: '/order/$id',
+  path: '/order/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppTableIdRoute = AppTableIdRouteImport.update({
   id: '/table/$id',
   path: '/table/$id',
@@ -58,7 +76,10 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/profile': typeof AppProfileRoute
   '/app/': typeof AppIndexRoute
+  '/app/bill/$id': typeof AppBillIdRoute
+  '/app/order/$id': typeof AppOrderIdRoute
   '/app/table/$id': typeof AppTableIdRoute
   '/app/venue/$id': typeof AppVenueIdRoute
 }
@@ -66,7 +87,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/profile': typeof AppProfileRoute
   '/app': typeof AppIndexRoute
+  '/app/bill/$id': typeof AppBillIdRoute
+  '/app/order/$id': typeof AppOrderIdRoute
   '/app/table/$id': typeof AppTableIdRoute
   '/app/venue/$id': typeof AppVenueIdRoute
 }
@@ -76,7 +100,10 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/profile': typeof AppProfileRoute
   '/app/': typeof AppIndexRoute
+  '/app/bill/$id': typeof AppBillIdRoute
+  '/app/order/$id': typeof AppOrderIdRoute
   '/app/table/$id': typeof AppTableIdRoute
   '/app/venue/$id': typeof AppVenueIdRoute
 }
@@ -87,18 +114,33 @@ export interface FileRouteTypes {
     | '/app'
     | '/login'
     | '/signup'
+    | '/app/profile'
     | '/app/'
+    | '/app/bill/$id'
+    | '/app/order/$id'
     | '/app/table/$id'
     | '/app/venue/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/app' | '/app/table/$id' | '/app/venue/$id'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/app/profile'
+    | '/app'
+    | '/app/bill/$id'
+    | '/app/order/$id'
+    | '/app/table/$id'
+    | '/app/venue/$id'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/login'
     | '/signup'
+    | '/app/profile'
     | '/app/'
+    | '/app/bill/$id'
+    | '/app/order/$id'
     | '/app/table/$id'
     | '/app/venue/$id'
   fileRoutesById: FileRoutesById
@@ -147,6 +189,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/bill/$id': {
+      id: '/app/bill/$id'
+      path: '/bill/$id'
+      fullPath: '/app/bill/$id'
+      preLoaderRoute: typeof AppBillIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/order/$id': {
+      id: '/app/order/$id'
+      path: '/order/$id'
+      fullPath: '/app/order/$id'
+      preLoaderRoute: typeof AppOrderIdRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/table/$id': {
       id: '/app/table/$id'
       path: '/table/$id'
@@ -165,13 +228,19 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppProfileRoute: typeof AppProfileRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppBillIdRoute: typeof AppBillIdRoute
+  AppOrderIdRoute: typeof AppOrderIdRoute
   AppTableIdRoute: typeof AppTableIdRoute
   AppVenueIdRoute: typeof AppVenueIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppProfileRoute: AppProfileRoute,
   AppIndexRoute: AppIndexRoute,
+  AppBillIdRoute: AppBillIdRoute,
+  AppOrderIdRoute: AppOrderIdRoute,
   AppTableIdRoute: AppTableIdRoute,
   AppVenueIdRoute: AppVenueIdRoute,
 }
